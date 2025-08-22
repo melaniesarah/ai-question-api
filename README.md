@@ -1,6 +1,8 @@
-# Simple FastAPI AI Question API
+# AI Question API
 
-A simple FastAPI application that receives questions, validates requests, and processes them through an AI API.
+> A simple FastAPI application that receives questions, validates requests, and processes them through an AI API.
+
+**Repository**: `ai-question-api`
 
 ## Features
 
