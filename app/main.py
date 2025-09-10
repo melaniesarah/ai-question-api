@@ -1,19 +1,12 @@
 from fastapi import FastAPI
-from app.router import router
+from app.router import router, root_router
 
 app = FastAPI(
     title="Simple AI Question API",
     description="A simple FastAPI app for handling AI questions",
-    version="1.0.0"
+    version="1.0.0",
 )
 
-# Include the router
-app.include_router(router)
-
-@app.get("/")
-async def root():
-    return {"message": "Welcome to Simple AI Question API"}
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
+# Include the routers
+app.include_router(root_router)  # Root and health endpoints
+app.include_router(router)  # API v1 endpoints
