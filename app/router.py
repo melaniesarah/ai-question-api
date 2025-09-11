@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.endpoints.core import root, health
-from app.endpoints.questions import ask_question, get_questions
+from app.controllers.core import root, health
+from app.controllers.questions import ask_question, get_questions
 
 # Main router for API v1 endpoints
 router = APIRouter(prefix="/api/v1")

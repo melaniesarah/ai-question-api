@@ -1,7 +1,3 @@
-"""
-Tests for core endpoints (root and health).
-"""
-
 from fastapi.testclient import TestClient
 from app.main import app
 

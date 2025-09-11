@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from pydantic import BaseModel
 from typing import Optional
+from app.openai_client import OpenAIClient
 
 
 # Request/Response models
@@ -20,14 +21,14 @@ questions_db = []
 
 
 async def ask_question(request: QuestionRequest):
-    """
-    Process a question and return AI response.
-    """
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
-    # Simulate AI processing (replace with actual AI API call)
-    ai_response = f"AI response to: {request.question}"
+    # Instantiate OpenAI client
+    openai_client = OpenAIClient()
+
+    # Get AI response using the client
+    ai_response = openai_client.generate_response(request.question)
 
     # Store the question and response
     question_data = {
