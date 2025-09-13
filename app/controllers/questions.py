@@ -24,25 +24,27 @@ async def ask_question(request: QuestionRequest):
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
-    # Instantiate OpenAI client
-    openai_client = OpenAIClient()
+    try:
+        openai_client = OpenAIClient()
 
-    # Get AI response using the client
-    ai_response = openai_client.generate_response(request.question)
+        ai_response = openai_client.generate_response(
+            prompt=request.question, context=request.context
+        )
 
-    # Store the question and response
-    question_data = {
-        "question": request.question,
-        "answer": ai_response,
-        "context": request.context,
-    }
-    questions_db.append(question_data)
+        question_data = {
+            "question": request.question,
+            "answer": ai_response,
+            "context": request.context,
+        }
+        questions_db.append(question_data)
 
-    return QuestionResponse(question=request.question, answer=ai_response)
+        return QuestionResponse(question=request.question, answer=ai_response)
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Failed to generate AI response: {str(e)}"
+        )
 
 
 async def get_questions():
-    """
-    Get all processed questions.
-    """
     return questions_db
